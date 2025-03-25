@@ -1,0 +1,19 @@
+{
+    "name": "alaikis/dimabia",
+    "description": "Fourth party settlement platform for enterprises",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Alaikis\\Dimabia\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alex",
+            "email": "alex@laialex.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
