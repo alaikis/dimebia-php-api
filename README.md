@@ -1,5 +1,10 @@
 # Dimebia API client for PHP
-you can use this client to create a payment as simple with a few lines of code
+1,install the package via composer
+```shell
+composer require alaikis/dimebia-php
+```
+
+2,you can use this client to create a payment as simple with a few lines of code
 ```php
 $key = "";
 $secret = "";
@@ -14,6 +19,7 @@ $payment = $client->createPayment([
 ])
 ```
 ## create a payment
+3, Of course,you can also generate a payment with full information about the order,which is useful for e-commerce, then you can track the transform with the information easy.
 ```php
 $key = "";
 $secret = "";
