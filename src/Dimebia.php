@@ -12,14 +12,20 @@ class Dimebia
     protected mixed $baseUrl="https://api.hottol.com/dimebia";
     protected mixed $token;
     protected mixed $version="v1";
+    private mixed $password;
 
-    public function __construct($token, $baseUrl=null, $version=null)
+    public function __construct($user, $password, $baseUrl=null, $version=null)
     {
-        $this->token = $token;
+        $this->token = $user;
+        $this->password = $password;
+        $this->token = $this->getUserToken();
         if($baseUrl) $this->setBaseUrl($baseUrl);
         if($version) $this->setVersion($version);
     }
 
+    private function getUserToken(){
+        return "";
+    }
 
     /**
      * set the base request url

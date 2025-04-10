@@ -3,6 +3,7 @@
     "description": "Fourth party settlement platform for enterprises",
     "type": "library",
     "license": "MIT",
+
     "autoload": {
         "psr-4": {
             "Alaikis\\Dimabia\\": "src/"
@@ -15,5 +16,7 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "php": ">=7.4"
+    }
 }
