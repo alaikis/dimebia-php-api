@@ -14,18 +14,22 @@ class Dimebia
     protected mixed $version="v1";
     private mixed $password;
     private $CONTENT_TYPE;
+    private mixed $user;
 
     public function __construct($user, $password, $baseUrl=null, $version=null)
     {
-        $this->token = null;
         $this->password = $password;
-        $this->token = $this->getUserToken();
+        $this->user = $user;
+        $this->token = getUserToken();
         if($baseUrl) $this->setBaseUrl($baseUrl);
         if($version) $this->setVersion($version);
     }
 
     private function getUserToken(){
-        return "";
+        return $this->httpFetch("/user/member/open/auth/login",[
+            "username"=>$this->user,
+            "password"=>$this->password,
+        ])->data->token;
     }
 
     /**
@@ -48,13 +52,13 @@ class Dimebia
     /**
      * make http request
      * @param $uri
-     * @param $data
-     * @param $method
+     * @param array $param
+     * @param string $method
      * @return array
      * @Author Alex
      * @Date 2025/3/25 10:33
      */
-    private function httpFetch($uri,$data, $method = "post"): array
+    private function httpFetch($uri,$param=[], $method = "post"): array
     {
         $ch = curl_init();
         $api = $this->baseUrl . "/" . $this->version . "/". $uri;
@@ -69,7 +73,7 @@ class Dimebia
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($param));
         }
         $headers    = [];
-        if (!empty($this->token)) {
+        if (isset($this->token)) {
             $headers[]  = "token: {$this->token}";
         }
 
