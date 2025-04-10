@@ -9,7 +9,7 @@ composer require alaikis/dimebia-php
 $key = "";
 $secret = "";
 $client = new Dimebia($key, $secret);
-$payment = $client->createPayment([
+$payment = $client->paymentApply([
     "amount" => [
         "value" => 100,
         "currency" => "EUR",
@@ -24,7 +24,7 @@ $payment = $client->createPayment([
 $key = "";
 $secret = "";
 $client = new Dimebia($key, $secret);
-$payment = $client->createPayment([
+$payment = $client->paymentApply([
     "amount" => [
         "value" => 100,
         "currency" => "EUR",
