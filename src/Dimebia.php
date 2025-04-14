@@ -1,5 +1,13 @@
 <?php
 namespace Alaikis\Dimebia;
+
+use Alaikis\Dimebia\endpoint\ChannelEndpoint;
+use Alaikis\Dimebia\endpoint\InvoiceEndpoint;
+use Alaikis\Dimebia\endpoint\OrderEndpoint;
+use Alaikis\Dimebia\endpoint\PaymentEndpoint;
+use Alaikis\Dimebia\endpoint\UserEndpoint;
+use Alaikis\Dimebia\endpoint\WalletEndpoint;
+
 /**
  * @author Alex Lai
  * @email alex@laialex.com
@@ -9,25 +17,44 @@ namespace Alaikis\Dimebia;
 class Dimebia
 {
 
-    protected mixed $baseUrl="https://api.hottol.com/dimebia";
+    protected mixed $baseUrl="https://api.hottol.com/dimebia/user/";
     protected mixed $token;
     protected mixed $version="v1";
     private mixed $password;
     private $CONTENT_TYPE;
     private mixed $user;
 
-    public function __construct($user, $password, $baseUrl=null, $version=null)
+    public $payments;
+    public $wallets;
+    public $orders;
+    public $invoices;
+
+    public $channel;
+
+    public $users;
+    public function __construct($account, $password, $baseUrl=null, $version=null)
     {
         $this->password = $password;
-        $this->user = $user;
+        $this->account = $account;
         $this->token = getUserToken();
         if($baseUrl) $this->setBaseUrl($baseUrl);
         if($version) $this->setVersion($version);
+        $this->initEndpoints();
+    }
+
+    private function initEndpoints(): void
+    {
+        $this->payments = new PaymentEndpoint($this);
+        $this->wallets = new WalletEndpoint($this);
+        $this->orders = new OrderEndpoint($this);
+        $this->invoices = new InvoiceEndpoint($this);
+        $this->channel = new ChannelEndpoint($this);
+        $this->users = new UserEndpoint($this);
     }
 
     private function getUserToken(){
-        return $this->httpFetch("/user/member/open/auth/login",[
-            "username"=>$this->user,
+        return $this->httpFetch("/member/open/auth/login",[
+            "account"=>$this->account,
             "password"=>$this->password,
         ])->data->token;
     }
@@ -98,77 +125,6 @@ class Dimebia
         //返回数据
         return (array) json_decode($output, true);
     }
-
-    /**
-     * make a order
-     * @param $requestParams
-     * @return array
-     * @Author Alex
-     * @Date 2025/3/25 10:33
-     */
-    public function paymentApply($requestParams) {
-        return $this->httpFetch("/payments/apply", $requestParams);
-    }
-
-    /**
-     * get the payment info by bill id
-     * @param $billId
-     * @return array
-     * @Author Alex
-     * @Date 2025/4/10 15:43
-     */
-    public function getPaymentById($billId) {
-        return $this->httpFetch("/payments/get", ["transactionId"=>$billId]);
-    }
-
-    /**
-     * get the payment list
-     * @param $filter
-     * @return array
-     * @Author Alex
-     * @Date 2025/4/10 15:43
-     */
-    public function getPayments($filter) {
-        return $this->httpFetch("/payments/list", $filter);
-    }
-
-    /**
-     * cancel the payment
-     * @param $billId
-     * @return array
-     * @Author Alex
-     * @Date 2025/4/10 15:43
-     */
-    public function paymentCancel($billId) {
-        return $this->httpFetch("/payments/cancel", ["transactionId"=>$billId]);
-    }
-
-    /**
-     * refund the payment
-     * @param $billId
-     * @param $refundAmount
-     * @return array
-     * @Author Alex
-     * @Date 2025/4/10 15:43
-     */
-    public function paymentRefund($billId,$refundAmount) {
-        return $this->httpFetch("/payments/refund", [
-            "transactionId"=>$billId,
-            "refundAmount"=>$refundAmount,
-        ]);
-    }
-
-    /**
-     * get the balances will group by currency
-     * @param $filter
-     * @return array
-     * @Author Alex
-     * @Date 2025/4/10 15:43
-     */
-    public function balances($filter) {
-        return $this->httpFetch("/balances/list", $filter);
-    }
-
     /**
      * mark the order as shipped
      * @param $filter
@@ -179,6 +135,5 @@ class Dimebia
     public function shipments($filter) {
         return $this->httpFetch("/shipments/list", $filter);
     }
-
 
 }
