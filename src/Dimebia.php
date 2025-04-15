@@ -22,7 +22,7 @@ class Dimebia
 
     use Initializable,HttpTrait;
     public const baseUrl="https://api.hottol.com/dimebia/user/";
-    protected  $token = null;
+    private mixed $token = null;
     protected const version="v1";
     private string $password;
     private string  $CONTENT_TYPE;
@@ -32,12 +32,16 @@ class Dimebia
     public InvoiceEndpoint $invoices;
     public ChannelEndpoint $channel;
     public UserEndpoint $users;
+    /**
+     * @var mixed
+     */
+    private string  $account;
 
     public function __construct($account, $password, $baseUrl=null, $version=null)
     {
         $this->password = $password;
         $this->account = $account;
-        $this->token = getUserToken();
+        $this->token = $this->getUserToken();
         if($baseUrl) $this->setBaseUrl($baseUrl);
         if($version) $this->setVersion($version);
         $this->initializeTraits();
@@ -47,7 +51,7 @@ class Dimebia
         return $this->httpFetch("/member/open/auth/login",[
             "account"=>$this->account,
             "password"=>$this->password,
-        ])->data->token;
+        ])["data"]["token"];
     }
 
     /**
@@ -64,18 +68,6 @@ class Dimebia
     public function setVersion(mixed $version)
     {
         $this->version = $version;
-    }
-
-
-    /**
-     * mark the order as shipped
-     * @param $filter
-     * @return array
-     * @Author Alex
-     * @Date 2025/4/10 15:44
-     */
-    public function shipments($filter) {
-        return $this->httpFetch("/shipments/list", $filter);
     }
 
 }
