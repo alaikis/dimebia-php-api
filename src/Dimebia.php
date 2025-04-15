@@ -22,7 +22,6 @@ class Dimebia
 
     use Initializable,HttpTrait;
     private mixed $token = null;
-    protected const version="v1";
     private string $password;
     private string  $CONTENT_TYPE;
     public PaymentEndpoint $payments;

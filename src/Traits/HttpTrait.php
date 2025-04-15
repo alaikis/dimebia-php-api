@@ -12,6 +12,7 @@ trait HttpTrait
 {
 
     public string $baseUrl = "https://api.hottol.com/dimebia/user/";
+    protected string $version="v1";
     /**
      * make http request
      * @param $uri
