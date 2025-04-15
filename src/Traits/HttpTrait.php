@@ -12,7 +12,7 @@ trait HttpTrait
 {
     private string $token;
     private string $baseUrl = "https://api.hottol.com/dimebia/user/";
-    private string $version="v1";
+    private string $version="";
 
     private string  $CONTENT_TYPE="";
     /**
@@ -27,7 +27,11 @@ trait HttpTrait
     private function httpFetch($uri,$param=[], $method = "post"): array
     {
         $ch = curl_init();
-        $api = $this->baseUrl . "/" . $this->version . "/". $uri;
+        $api = $this->baseUrl . $uri;
+        if ($this->version != '') {
+            $api = $this->baseUrl . $this->version . "/". $uri;
+        }
+
         //指定URL
         curl_setopt($ch, CURLOPT_URL, $api);
         //设定请求后返回结果
