@@ -8,7 +8,7 @@
 
 namespace Alaikis\Dimebia\Traits;
 
-trait HttpTrait
+class HttpTrait
 {
     private string $token;
     private string $baseUrl = "https://api.hottol.com/dimebia/user/";
@@ -24,7 +24,7 @@ trait HttpTrait
      * @Author Alex
      * @Date 2025/3/25 10:33
      */
-    private function httpFetch($uri,$param=[], $method = "post"): array
+    public function httpFetch($uri,$param=[], $method = "post"): array
     {
         $ch = curl_init();
         $api = $this->baseUrl . $uri;

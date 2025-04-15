@@ -17,10 +17,10 @@ use Alaikis\Dimebia\Traits\Initializable;
  * @website https://laialex.com
  * @Date 2025/3/25 9:45
  */
-class Dimebia
+class Dimebia extends HttpTrait
 {
 
-    use Initializable,HttpTrait;
+    use Initializable;
     private string $password;
     public PaymentEndpoint $payments;
     public WalletEndpoint $wallets;
