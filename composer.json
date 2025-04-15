@@ -3,10 +3,12 @@
     "description": "Fourth party settlement platform for enterprises",
     "type": "library",
     "license": "MIT",
-
+    "config": {
+        "sort-packages": true
+    },
     "autoload": {
         "psr-4": {
-            "Alaikis\\Dimabia\\": "src/"
+            "Alaikis\\Dimebia\\": "src/"
         }
     },
     "authors": [
@@ -15,8 +17,10 @@
             "email": "alex@laialex.com"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
-        "php": ">=7.4"
+        "php": "^7.4|^8.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-openssl": "*"
     }
 }

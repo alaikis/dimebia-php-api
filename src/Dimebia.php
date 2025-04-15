@@ -1,12 +1,8 @@
 <?php
+
 namespace Alaikis\Dimebia;
 
-use Alaikis\Dimebia\endpoint\ChannelEndpoint;
-use Alaikis\Dimebia\endpoint\InvoiceEndpoint;
-use Alaikis\Dimebia\endpoint\OrderEndpoint;
-use Alaikis\Dimebia\endpoint\PaymentEndpoint;
-use Alaikis\Dimebia\endpoint\UserEndpoint;
-use Alaikis\Dimebia\endpoint\WalletEndpoint;
+use Alaikis\Dimebia\Traits\Initializable;
 
 /**
  * @author Alex Lai
@@ -17,12 +13,12 @@ use Alaikis\Dimebia\endpoint\WalletEndpoint;
 class Dimebia
 {
 
-    protected mixed $baseUrl="https://api.hottol.com/dimebia/user/";
-    protected mixed $token;
-    protected mixed $version="v1";
+    use Initializable;
+    public const baseUrl="https://api.hottol.com/dimebia/user/";
+    protected  $token = null;
+    protected const version="v1";
     private mixed $password;
     private $CONTENT_TYPE;
-    private mixed $user;
 
     public $payments;
     public $wallets;
@@ -39,17 +35,7 @@ class Dimebia
         $this->token = getUserToken();
         if($baseUrl) $this->setBaseUrl($baseUrl);
         if($version) $this->setVersion($version);
-        $this->initEndpoints();
-    }
-
-    private function initEndpoints(): void
-    {
-        $this->payments = new PaymentEndpoint($this);
-        $this->wallets = new WalletEndpoint($this);
-        $this->orders = new OrderEndpoint($this);
-        $this->invoices = new InvoiceEndpoint($this);
-        $this->channel = new ChannelEndpoint($this);
-        $this->users = new UserEndpoint($this);
+        $this->initializeTraits();
     }
 
     private function getUserToken(){

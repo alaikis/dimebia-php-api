@@ -6,7 +6,7 @@
  * @Date 2025/4/14 11:45
  */
 
-namespace Alaikis\Dimebia\endpoint;
+namespace Alaikis\Dimebia\Endpoints;
 
 class OrderEndpoint
 {
