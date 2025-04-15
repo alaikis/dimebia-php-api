@@ -5,7 +5,6 @@
  * @website https://laialex.com
  * @Date 2025/4/14 11:55
  */
-namespace Alaikis\Dimebia\Tests;
 
 use Alaikis\Dimebia\Dimebia;
 

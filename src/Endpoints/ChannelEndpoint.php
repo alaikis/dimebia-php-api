@@ -10,6 +10,7 @@ namespace Alaikis\Dimebia\Endpoints;
 
 class ChannelEndpoint
 {
+
     private $BASE_ENDPOINT = 'channel';
 
     public function channelModify($channel){

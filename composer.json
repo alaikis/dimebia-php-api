@@ -1,8 +1,59 @@
 {
     "name": "alaikis/dimebia-php",
+    "keywords": [
+        "mollie",
+        "payment",
+        "service",
+        "ideal",
+        "creditcard",
+        "apple pay",
+        "mistercash",
+        "bancontact",
+        "sofort",
+        "sofortbanking",
+        "sepa",
+        "paypal",
+        "paysafecard",
+        "podiumcadeaukaart",
+        "przelewy24",
+        "banktransfer",
+        "direct debit",
+        "belfius",
+        "belfius direct net",
+        "refunds",
+        "api",
+        "payments",
+        "gateway",
+        "subscriptions",
+        "recurring",
+        "charges",
+        "kbc",
+        "cbc",
+        "gift cards",
+        "intersolve",
+        "fashioncheque",
+        "inghomepay",
+        "klarna",
+        "paylater",
+        "sliceit",
+        "payoneer",
+        "pingpong",
+        "lianlianpay",
+        "worldfirst",
+        "xtransfer",
+        "airwallex",
+        "stripe"
+    ],
+    "homepage": "https://www.dimebia.org",
     "description": "Fourth party settlement platform for enterprises",
     "type": "library",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex",
+            "email": "alex@laialex.com"
+        }
+    ],
     "config": {
         "sort-packages": true
     },
@@ -11,12 +62,13 @@
             "Alaikis\\Dimebia\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "Alex",
-            "email": "alex@laialex.com"
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Tests\\Mollie\\Api\\": "tests/Mollie/API/"
         }
-    ],
+    },
+
     "require": {
         "php": "^7.4|^8.0",
         "ext-curl": "*",
