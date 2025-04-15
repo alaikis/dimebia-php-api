@@ -2,6 +2,13 @@
 
 namespace Alaikis\Dimebia;
 
+use Alaikis\Dimebia\Endpoints\ChannelEndpoint;
+use Alaikis\Dimebia\Endpoints\InvoiceEndpoint;
+use Alaikis\Dimebia\Endpoints\OrderEndpoint;
+use Alaikis\Dimebia\Endpoints\PaymentEndpoint;
+use Alaikis\Dimebia\Endpoints\UserEndpoint;
+use Alaikis\Dimebia\Endpoints\WalletEndpoint;
+use Alaikis\Dimebia\Traits\HttpTrait;
 use Alaikis\Dimebia\Traits\Initializable;
 
 /**
@@ -13,21 +20,19 @@ use Alaikis\Dimebia\Traits\Initializable;
 class Dimebia
 {
 
-    use Initializable;
+    use Initializable,HttpTrait;
     public const baseUrl="https://api.hottol.com/dimebia/user/";
     protected  $token = null;
     protected const version="v1";
-    private mixed $password;
-    private $CONTENT_TYPE;
+    private string $password;
+    private string  $CONTENT_TYPE;
+    public PaymentEndpoint $payments;
+    public WalletEndpoint $wallets;
+    public OrderEndpoint $orders;
+    public InvoiceEndpoint $invoices;
+    public ChannelEndpoint $channel;
+    public UserEndpoint $users;
 
-    public $payments;
-    public $wallets;
-    public $orders;
-    public $invoices;
-
-    public $channel;
-
-    public $users;
     public function __construct($account, $password, $baseUrl=null, $version=null)
     {
         $this->password = $password;
@@ -62,55 +67,6 @@ class Dimebia
     }
 
 
-    /**
-     * make http request
-     * @param $uri
-     * @param array $param
-     * @param string $method
-     * @return array
-     * @Author Alex
-     * @Date 2025/3/25 10:33
-     */
-    private function httpFetch($uri,$param=[], $method = "post"): array
-    {
-        $ch = curl_init();
-        $api = $this->baseUrl . "/" . $this->version . "/". $uri;
-        //指定URL
-        curl_setopt($ch, CURLOPT_URL, $api);
-        //设定请求后返回结果
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        if (strtolower($method) == 'post') {
-            //声明使用POST方式来进行发送
-            curl_setopt($ch, CURLOPT_POST, 1);
-            //发送什么数据呢
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($param));
-        }
-        $headers    = [];
-        if (isset($this->token)) {
-            $headers[]  = "token: {$this->token}";
-        }
-
-        if ($this->CONTENT_TYPE != '') {
-            $headers[] = "Content-Type: {$this->CONTENT_TYPE}";
-        }
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        //忽略header头信息
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        //设置超时时间
-        curl_setopt($ch, CURLOPT_TIMEOUT, 900);
-        curl_setopt($ch, CURLOPT_FAILONERROR, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 300);
-        //发送请求
-        $output = curl_exec($ch);
-        //关闭curl
-        curl_close($ch);
-        //返回数据
-        return (array) json_decode($output, true);
-    }
     /**
      * mark the order as shipped
      * @param $filter
