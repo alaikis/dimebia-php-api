@@ -3,7 +3,7 @@
         'name' => 'alaikis/dimebia-php',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '1b18b6b0f26b09124a0d23a94737c8855fc64864',
+        'reference' => '3da50b1d5f0e14c59859fd55864ee2e6421b0a21',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'alaikis/dimebia-php' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '1b18b6b0f26b09124a0d23a94737c8855fc64864',
+            'reference' => '3da50b1d5f0e14c59859fd55864ee2e6421b0a21',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

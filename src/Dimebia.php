@@ -21,7 +21,6 @@ class Dimebia
 {
 
     use Initializable,HttpTrait;
-    public const baseUrl="https://api.hottol.com/dimebia/user/";
     private mixed $token = null;
     protected const version="v1";
     private string $password;

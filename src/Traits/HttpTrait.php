@@ -11,6 +11,7 @@ namespace Alaikis\Dimebia\Traits;
 trait HttpTrait
 {
 
+    public string $baseUrl = "https://api.hottol.com/dimebia/user/";
     /**
      * make http request
      * @param $uri
