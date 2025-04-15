@@ -6,7 +6,6 @@
  * @Date 2025/4/15 15:50
  */
 
+require_once __DIR__ . "../../vendor/autoload.php";
 
-use Alaikis\Dimebia\DimebiaClient;
-
-$cl = new DimebiaClient("","");
+$cl = new \Alaikis\Dimebia\Dimebia("","");
