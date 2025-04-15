@@ -14,7 +14,7 @@ trait HttpTrait
     private string $baseUrl = "https://api.hottol.com/dimebia/user/";
     private string $version="";
 
-    private string  $CONTENT_TYPE="";
+    private string  $CONTENT_TYPE="application/json";
     /**
      * make http request
      * @param $uri
