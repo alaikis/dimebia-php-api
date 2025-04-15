@@ -65,7 +65,7 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Tests\\Mollie\\Api\\": "tests/Mollie/API/"
+            "Tests\\Mollie\\Api\\": "tests/Dimebia/API/"
         }
     },
 

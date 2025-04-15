@@ -4,7 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="Alaikis\Dimebia\" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" packagePrefix="Tests\" />
-      <sourceFolder url="file://$MODULE_DIR$/tests/Mollie/API" isTestSource="true" packagePrefix="Tests\Mollie\Api\" />
+      <sourceFolder url="file://$MODULE_DIR$/tests/Dimebia/API" isTestSource="true" packagePrefix="Tests\Mollie\Api\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
     </content>
     <orderEntry type="inheritedJdk" />

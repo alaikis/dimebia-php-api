@@ -7,5 +7,6 @@
  */
 
 
-$cl = new Alaikis\Dimebia\Dimebia("","");
-$cl->channel->channelList([]);
+use Alaikis\Dimebia\DimebiaClient;
+
+$cl = new DimebiaClient("","");
