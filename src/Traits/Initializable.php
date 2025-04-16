@@ -15,13 +15,20 @@ use Alaikis\Dimebia\Endpoints\WalletEndpoint;
  */
 trait Initializable
 {
+    public string $password;
+    public PaymentEndpoint $payments;
+    public WalletEndpoint $wallets;
+    public OrderEndpoint $orders;
+    public InvoiceEndpoint $invoices;
+    public ChannelEndpoint $channel;
+    public UserEndpoint $users;
     public function initializeTraits()
     {
-        $this->payments = new PaymentEndpoint();
-        $this->wallets = new WalletEndpoint();
-        $this->orders = new OrderEndpoint();
-        $this->invoices = new InvoiceEndpoint();
-        $this->channel = new ChannelEndpoint();
-        $this->users = new UserEndpoint();
+        $this->payments = new PaymentEndpoint($this);
+        $this->wallets = new WalletEndpoint($this);
+        $this->orders = new OrderEndpoint($this);
+        $this->invoices = new InvoiceEndpoint($this);
+        $this->channel = new ChannelEndpoint($this);
+        $this->users = new UserEndpoint($this);
     }
 }

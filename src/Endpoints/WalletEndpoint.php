@@ -8,7 +8,7 @@
 
 namespace Alaikis\Dimebia\Endpoints;
 
-class WalletEndpoint
-{
 
+class WalletEndpoint  extends EndpointCollection
+{
 }

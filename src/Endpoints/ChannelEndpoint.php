@@ -8,35 +8,50 @@
 
 namespace Alaikis\Dimebia\Endpoints;
 
-class ChannelEndpoint
+use Alaikis\Dimebia\Contracts\Bridge;
+use Alaikis\Dimebia\Traits\HttpTrait;
+
+class ChannelEndpoint extends EndpointCollection
 {
 
-    private $BASE_ENDPOINT = 'channel';
+    private const BASE_ENDPOINT = 'channel';
 
+    /**
+     * @throws \Exception
+     */
     public function channelModify($channel){
         return $this->httpFetch(
-            $this->BASE_ENDPOINT . "/modify",
+            self::BASE_ENDPOINT . "/modify",
             $channel
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function availableGrants($queryParams=[]){
         return $this->httpFetch(
-            $this->BASE_ENDPOINT . "/grants",
+            self::BASE_ENDPOINT . "/grants",
             $queryParams
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function channelList($queryParams=[]){
         return $this->httpFetch(
-            $this->BASE_ENDPOINT . "/list",
+            self::BASE_ENDPOINT . "/list",
             $queryParams
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function channel($channelId){
         $result=  $this->httpFetch(
-            $this->BASE_ENDPOINT . "/list",
+            self::BASE_ENDPOINT . "/list",
             [
                 "id" => $channelId
             ]

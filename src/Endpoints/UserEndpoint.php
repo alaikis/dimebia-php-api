@@ -8,7 +8,7 @@
 
 namespace Alaikis\Dimebia\Endpoints;
 
-class UserEndpoint
+class UserEndpoint  extends EndpointCollection
 {
 
 }

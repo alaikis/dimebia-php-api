@@ -3,18 +3,18 @@
  * @author Alex Lai
  * @email alex@laialex.com
  * @website https://laialex.com
- * @Date 2025/4/15 15:48
+ * @Date 2025/4/16 8:17
  */
 
-namespace Alaikis\Dimebia\Traits;
+namespace Alaikis\Dimebia\http;
 
-class HttpTrait
+class Request
 {
-    private string $token;
-    private string $baseUrl = "https://api.hottol.com/dimebia/user/";
-    private string $version="";
+    public string $token="";
+    public string $baseUrl = "https://api.hottol.com/dimebia/user/";
+    public string $version="";
 
-    private string  $CONTENT_TYPE="application/json";
+    public string  $CONTENT_TYPE="application/json";
     /**
      * make http request
      * @param $uri
@@ -43,7 +43,7 @@ class HttpTrait
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($param));
         }
         $headers    = [];
-        if (isset($this->token)) {
+        if ($this->token != '') {
             $headers[]  = "token: {$this->token}";
         }
 
@@ -67,5 +67,39 @@ class HttpTrait
         curl_close($ch);
         //返回数据
         return (array) json_decode($output, true);
+    }
+
+
+    public function getUserToken(){
+        $getToken = $this->httpFetch("/member/open/auth/login",[
+            "account"=>$this->account,
+            "password"=>$this->password,
+        ])["data"]["token"];
+        $this->token = $getToken;
+    }
+
+
+    /**
+     * set the base request url
+     * @param string $baseUrl
+     * @return void
+     * @Author Alex
+     * @Date 2025/3/25 10:33
+     */
+    public function setBaseUrl(string $baseUrl): void
+    {
+        $this->baseUrl = $baseUrl;
+    }
+
+    /**
+     * set the api version
+     * @param string $version
+     * @return void
+     * @Author Alex
+     * @Date 2025/4/16 8:27
+     */
+    public function setVersion(string $version)
+    {
+        $this->version = $version;
     }
 }

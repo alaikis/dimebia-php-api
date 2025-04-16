@@ -8,7 +8,7 @@
 
 namespace Alaikis\Dimebia\Endpoints;
 
-class OrderEndpoint
-{
 
+class OrderEndpoint  extends EndpointCollection
+{
 }
