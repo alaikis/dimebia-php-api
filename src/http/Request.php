@@ -14,6 +14,7 @@ class Request
     public string $baseUrl = "https://api.hottol.com/dimebia/user/";
     public string $version="";
 
+
     public string  $CONTENT_TYPE="application/json";
     /**
      * make http request
@@ -44,7 +45,7 @@ class Request
         }
         $headers    = [];
         if ($this->token != '') {
-            $headers[]  = "token: {$this->token}";
+            $headers[]  = "Authorization: token {$this->token}";
         }
 
         if ($this->CONTENT_TYPE != '') {
@@ -70,10 +71,11 @@ class Request
     }
 
 
-    public function getUserToken(){
+    public function getUserToken($account,$password)
+    {
         $getToken = $this->httpFetch("/member/open/auth/login",[
-            "account"=>$this->account,
-            "password"=>$this->password,
+            "account"=>$account,
+            "password"=>$password,
         ])["data"]["token"];
         $this->token = $getToken;
     }

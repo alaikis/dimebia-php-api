@@ -8,7 +8,8 @@
 
 namespace Alaikis\Dimebia\Contracts;
 
-use Alaikis\Dimebia\Traits\HttpTrait;
+use Alaikis\Dimebia\http\Request;
+use Attribute;
 
 class Bridge
 {
@@ -16,21 +17,23 @@ class Bridge
     /**
      * @var mixed
      */
-    private $container;
+    private Request $request;
+    /**
+     * @var mixed
+     */
 
-    public function __construct($container) {
-        $this->token = $container['token'] ?? null;
-        $this->container = $container;
+    public function __construct(Request $request) {
+        $this->request = $request;
     }
 
     /**
      * @throws \Exception
      */
-    public function httpFetch($uri, $param=[], $method = "post") {
-        $client = $this->$container['httpFetch'] ?? null;
-        if (!$client) {
+    public function httpFetch($uri, $param=[], $method = "post"): array
+    {
+        if (!method_exists($this->request,"httpFetch")) {
             throw new \Exception("Http client not found");
         }
-        return $client($uri,$param, $method);
+        return $this->request->httpFetch($uri,$param, $method);
     }
 }

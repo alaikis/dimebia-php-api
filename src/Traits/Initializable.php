@@ -6,6 +6,7 @@ use Alaikis\Dimebia\Endpoints\OrderEndpoint;
 use Alaikis\Dimebia\Endpoints\PaymentEndpoint;
 use Alaikis\Dimebia\Endpoints\UserEndpoint;
 use Alaikis\Dimebia\Endpoints\WalletEndpoint;
+use Alaikis\Dimebia\http\Request;
 
 /**
  * @author Alex Lai
@@ -15,20 +16,33 @@ use Alaikis\Dimebia\Endpoints\WalletEndpoint;
  */
 trait Initializable
 {
-    public string $password;
     public PaymentEndpoint $payments;
     public WalletEndpoint $wallets;
     public OrderEndpoint $orders;
     public InvoiceEndpoint $invoices;
     public ChannelEndpoint $channel;
     public UserEndpoint $users;
+
+    /**
+     * @throws \Exception
+     */
     public function initializeTraits()
     {
-        $this->payments = new PaymentEndpoint($this);
-        $this->wallets = new WalletEndpoint($this);
-        $this->orders = new OrderEndpoint($this);
-        $this->invoices = new InvoiceEndpoint($this);
-        $this->channel = new ChannelEndpoint($this);
-        $this->users = new UserEndpoint($this);
+        if(!isset($this->account)){
+            throw new \Exception("the account is required");
+        };
+        if(!isset($this->password)){
+            throw new \Exception("the password is required");
+        };
+        $request = new Request();
+        $request->getUserToken($this->account,$this->password);
+        if($this->baseUrl) $request->setBaseUrl($this->baseUrl);
+        if($this->version) $request->setVersion($this->version);
+        $this->payments = new PaymentEndpoint($request);
+        $this->wallets = new WalletEndpoint($request);
+        $this->orders = new OrderEndpoint($request);
+        $this->invoices = new InvoiceEndpoint($request);
+        $this->channel = new ChannelEndpoint($request);
+        $this->users = new UserEndpoint($request);
     }
 }

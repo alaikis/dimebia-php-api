@@ -11,21 +11,31 @@ use Alaikis\Dimebia\Traits\Initializable;
  * @website https://laialex.com
  * @Date 2025/3/25 9:45
  */
-class Dimebia extends Request
+class Dimebia
 {
 
     use Initializable;
+
     /**
      * @var mixed
      */
     public string  $account;
+    private string $password;
+    /**
+     * @var mixed|null
+     */
+    private string $baseUrl;
+    /**
+     * @var mixed|null
+     */
+    private string $version;
+
     public function __construct($account, $password, $baseUrl=null, $version=null)
     {
-        $this->password = $password;
         $this->account = $account;
-        $this->getUserToken();
-        if($baseUrl) $this->setBaseUrl($baseUrl);
-        if($version) $this->setVersion($version);
+        $this->password = $password;
+        $this->baseUrl = $baseUrl;
+        $this->version = $version;
         $this->initializeTraits();
     }
 
